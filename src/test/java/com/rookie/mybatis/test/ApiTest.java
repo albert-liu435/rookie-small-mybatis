@@ -1,70 +1,48 @@
 package com.rookie.mybatis.test;
 
-import com.rookie.mybatis.test.dao.IActivityDao;
+
+import com.rookie.mybatis.binding.MapperProxyFactory;
 import com.rookie.mybatis.test.dao.IUserDao;
-import com.rookie.mybatis.test.po.Activity;
-import com.rookie.mybatis.test.po.User;
-import com.alibaba.fastjson.JSON;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.List;
+import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.Map;
 
 
+/**
+ * @Class ApiTest
+ * @Description 单元测试
+ * @Author rookie
+ * @Date 2024/4/19 16:10
+ * @Version 1.0
+ */
 public class ApiTest {
 
     private Logger logger = LoggerFactory.getLogger(ApiTest.class);
 
     @Test
-    public void test_SqlSessionFactory() throws IOException {
+    public void test_MapperProxyFactory() {
+        MapperProxyFactory<IUserDao> factory = new MapperProxyFactory<>(IUserDao.class);
 
-        // 1. 从SqlSessionFactory中获取SqlSession
-        Reader reader = Resources.getResourceAsReader("mybatis-config-datasource.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        Map<String, String> sqlSession = new HashMap<>();
+        sqlSession.put("com.rookie.mybatis.test.dao.IUserDao.queryUserName", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户姓名");
+        sqlSession.put("com.rookie.mybatis.test.dao.IUserDao.queryUserAge", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户年龄");
+        IUserDao userDao = factory.newInstance(sqlSession);
 
-        // 2. 请求对象
-        Activity req = new Activity();
-        req.setActivityId(100001L);
-
-        // 3. 第一组：SqlSession
-        // 3.1 开启 Session
-        SqlSession sqlSession01 = sqlSessionFactory.openSession();
-        // 3.2 获取映射器对象
-        IActivityDao dao01 = sqlSession01.getMapper(IActivityDao.class);
-        logger.info("测试结果01：{}", JSON.toJSONString(dao01.queryActivityById(req)));
-        sqlSession01.close();
-
-        // 4. 第一组：SqlSession
-        // 4.1 开启 Session
-        SqlSession sqlSession02 = sqlSessionFactory.openSession();
-        // 4.2 获取映射器对象
-        IActivityDao dao02 = sqlSession02.getMapper(IActivityDao.class);
-        logger.info("测试结果02：{}", JSON.toJSONString(dao02.queryActivityById(req)));
-        sqlSession02.close();
+        String res = userDao.queryUserName("10001");
+        logger.info("测试结果：{}", res);
     }
 
     @Test
-    public void test_SqlSessionFactory_Annotation() throws IOException {
-        // 1. 从SqlSessionFactory中获取SqlSession
-        Reader reader = Resources.getResourceAsReader("mybatis-config-datasource-annotation.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-
-        // 2. 开启 Session
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-
-        // 3. 获取映射器对象
-        IUserDao userDao = sqlSession.getMapper(IUserDao.class);
-
-        // 4. 测试验证
-        List<User> users = userDao.queryUserInfoList();
-        logger.info("测试结果：{}", JSON.toJSONString(users));
+    public void test_proxy_class() {
+        IUserDao userDao = (IUserDao) Proxy.newProxyInstance(
+                Thread.currentThread().getContextClassLoader(),
+                new Class[]{IUserDao.class}, (proxy, method, args) -> "你被代理了！");
+        String result = userDao.queryUserName("10001");
+        System.out.println("测试结果：" + result);
     }
 
 }
