@@ -15,11 +15,14 @@ import java.util.Map;
 public class MappedStatement {
 
     private Configuration configuration;
+    //xml sql语句ID,如：com.rookie.mybatis.test.dao.IUserDao.queryUserInfoById
     private String id;
+    //SQL指令
     private SqlCommandType sqlCommandType;
 
     private String parameterType;
     private String resultType;
+    //SQL语句
     private String sql;
     private Map<Integer, String> parameter;
 

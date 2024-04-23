@@ -18,6 +18,11 @@ public class MapperMethod {
 
     private final SqlCommand command;
 
+    /**
+     * @param mapperInterface 接口Class
+     * @param method          接口对应的method
+     * @param configuration   配置信息
+     */
     public MapperMethod(Class<?> mapperInterface, Method method, Configuration configuration) {
         this.command = new SqlCommand(configuration, mapperInterface, method);
     }
@@ -49,6 +54,7 @@ public class MapperMethod {
         private final SqlCommandType type;
 
         public SqlCommand(Configuration configuration, Class<?> mapperInterface, Method method) {
+            //映射器方法如：com.rookie.mybatis.test.dao.IUserDao.queryUserInfoById
             String statementName = mapperInterface.getName() + "." + method.getName();
             MappedStatement ms = configuration.getMappedStatement(statementName);
             name = ms.getId();
