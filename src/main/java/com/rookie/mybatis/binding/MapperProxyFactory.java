@@ -6,6 +6,9 @@ import java.util.Map;
 /**
  * @Class MapperProxyFactory
  * @Description 映射器代理工厂
+ *
+ * MapperProxyFactory 是对 MapperProxy 的包装，对外提供实例化对象的操作。当我们后面开始给每个操作数据库的接口映射器注册代理的时候，就需要使用到这个工厂类了。
+ *
  * @Author rookie
  * @Date 2024/4/19 16:09
  * @Version 1.0

@@ -9,6 +9,8 @@ import java.util.Map;
  * @Class MapperProxy
  * @Description 映射器代理类,通过代理类包装对数据库的操作
  * 通过实现 InvocationHandler#invoke 代理类接口，封装操作逻辑的方式，对外接口提供数据库操作对象。
+ * MapperProxy 负责实现 InvocationHandler 接口的 invoke 方法，最终所有的实际调用都会调用到这个方法包装的逻辑。
+ *
  *
  * @Author rookie
  * @Date 2024/4/19 16:09
