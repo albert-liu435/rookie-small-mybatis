@@ -16,8 +16,8 @@ public interface SqlSession {
      * Retrieve a single row mapped from the statement key
      * 根据指定的SqlID获取一条记录的封装对象
      *
-     * @param statement sqlID
      * @param <T>       the returned object type 封装之后的对象类型
+     * @param statement sqlID
      * @return Mapped object 封装之后的对象
      */
     <T> T selectOne(String statement);
@@ -35,6 +35,13 @@ public interface SqlSession {
     <T> T selectOne(String statement, Object parameter);
 
     /**
+     * Retrieves current configuration
+     * 得到配置
+     * @return Configuration
+     */
+    Configuration getConfiguration();
+
+    /**
      * Retrieves a mapper.
      * 得到映射器，这个巧妙的使用了泛型，使得类型安全
      *
@@ -45,4 +52,3 @@ public interface SqlSession {
     <T> T getMapper(Class<T> type);
 
 }
-
