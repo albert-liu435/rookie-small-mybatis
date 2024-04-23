@@ -1,5 +1,7 @@
 package com.rookie.mybatis.binding;
 
+import com.rookie.mybatis.session.SqlSession;
+
 import java.lang.reflect.Proxy;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class MapperProxyFactory<T> {
      * @param sqlSession
      * @return
      */
-    public T newInstance(Map<String, String> sqlSession) {
+    public T newInstance(SqlSession sqlSession) {
         final MapperProxy<T> mapperProxy = new MapperProxy<>(sqlSession, mapperInterface);
         //返回代理对象
         return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[]{mapperInterface}, mapperProxy);
