@@ -4,6 +4,8 @@ package com.rookie.mybatis.session;
  * @Class SqlSession
  * @Description SqlSession 用来执行SQL，获取映射器，管理事务。
  * PS：通常情况下，我们在应用程序中使用的Mybatis的API就是这个接口定义的方法。
+ * <p>
+ * SqlSession、DefaultSqlSession 用于定义执行 SQL 标准、获取映射器以及将来管理事务等方面的操作。基本我们平常使用 Mybatis 的 API 接口也都是从这个接口类定义的方法进行使用的。
  * @Author rookie
  * @Date 2024/4/19 17:48
  * @Version 1.0

@@ -9,4 +9,3 @@ public interface IUserDao {
     Integer queryUserAge(String uId);
 
 }
-
