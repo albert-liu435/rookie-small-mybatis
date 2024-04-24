@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @Class User
- * @Description TODO
+ * @Description
  * @Author rookie
  * @Date 2024/4/23 14:52
  * @Version 1.0
@@ -12,10 +12,16 @@ import java.util.Date;
 public class User {
 
     private Long id;
-    private String userId;          // 用户ID
-    private String userHead;        // 头像
-    private Date createTime;        // 创建时间
-    private Date updateTime;        // 更新时间
+    // 用户ID
+    private String userId;
+    // 用户名称
+    private String userName;
+    // 头像
+    private String userHead;
+    // 创建时间
+    private Date createTime;
+    // 更新时间
+    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -31,6 +37,14 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getUserHead() {
