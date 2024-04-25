@@ -28,6 +28,7 @@ public class DefaultResultSetHandler implements ResultSetHandler {
     public <E> List<E> handleResultSets(Statement stmt) throws SQLException {
         ResultSet resultSet = stmt.getResultSet();
         try {
+            //将查询结果转换为java对象
             return resultSet2Obj(resultSet, Class.forName(boundSql.getResultType()));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

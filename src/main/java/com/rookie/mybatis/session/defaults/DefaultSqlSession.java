@@ -38,6 +38,7 @@ public class DefaultSqlSession implements SqlSession {
     public <T> T selectOne(String statement, Object parameter) {
         MappedStatement ms = configuration.getMappedStatement(statement);
         List<T> list = executor.query(ms, parameter, Executor.NO_RESULT_HANDLER, ms.getBoundSql());
+        //因为查询的是一条记录，所以这里返回的是第一条记录
         return list.get(0);
     }
 
