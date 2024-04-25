@@ -8,5 +8,7 @@ public interface IUserDao {
 
     Integer queryUserAge(String uId);
 
+    String queryName(String uId);
+
 }
 

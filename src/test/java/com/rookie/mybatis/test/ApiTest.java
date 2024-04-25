@@ -43,6 +43,9 @@ public class ApiTest {
                 new Class[]{IUserDao.class}, (proxy, method, args) -> "你被代理了！");
         String result = userDao.queryUserName("10001");
         System.out.println("测试结果：" + result);
+
+        String result1 = userDao.queryName("10001");
+        System.out.println("测试结果1：" + result1);
     }
 
 }
