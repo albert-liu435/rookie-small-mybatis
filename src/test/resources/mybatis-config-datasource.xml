@@ -7,12 +7,17 @@
 
 <configuration>
 
-    <plugins>
-        <plugin interceptor="com.rookie.mybatis.test.plugin.TestPlugin">
-            <property name="test00" value="100"/>
-            <property name="test01" value="200"/>
-        </plugin>
-    </plugins>
+    <settings>
+        <!--缓存级别：SESSION/STATEMENT-->
+        <setting name="localCacheScope" value="SESSION"/>
+    </settings>
+
+<!--    <plugins>-->
+<!--        <plugin interceptor="com.rookie.mybatis.test.plugin.TestPlugin">-->
+<!--            <property name="test00" value="100"/>-->
+<!--            <property name="test01" value="200"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->
 
 
     <environments default="development">
