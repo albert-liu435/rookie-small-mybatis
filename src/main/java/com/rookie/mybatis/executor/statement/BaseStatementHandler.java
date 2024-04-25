@@ -1,6 +1,7 @@
 package com.rookie.mybatis.executor.statement;
 
 import com.rookie.mybatis.executor.Executor;
+import com.rookie.mybatis.executor.keygen.KeyGenerator;
 import com.rookie.mybatis.executor.parameter.ParameterHandler;
 import com.rookie.mybatis.executor.resultset.ResultSetHandler;
 import com.rookie.mybatis.mapping.BoundSql;
@@ -40,7 +41,9 @@ public abstract class BaseStatementHandler implements StatementHandler {
         this.rowBounds = rowBounds;
 
         // step-11 新增判断，因为 update 不会传入 boundSql 参数，所以这里要做初始化处理
+        // step-14 添加 generateKeys
         if (boundSql == null) {
+            generateKeys(parameterObject);
             boundSql = mappedStatement.getBoundSql(parameterObject);
         }
 
@@ -68,4 +71,8 @@ public abstract class BaseStatementHandler implements StatementHandler {
 
     protected abstract Statement instantiateStatement(Connection connection) throws SQLException;
 
+    protected void generateKeys(Object parameter) {
+        KeyGenerator keyGenerator = mappedStatement.getKeyGenerator();
+        keyGenerator.processBefore(executor, mappedStatement, null, parameter);
+    }
 }
