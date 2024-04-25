@@ -4,6 +4,7 @@ import com.rookie.mybatis.mapping.BoundSql;
 import com.rookie.mybatis.mapping.MappedStatement;
 import com.rookie.mybatis.session.Configuration;
 import com.rookie.mybatis.session.ResultHandler;
+import com.rookie.mybatis.session.RowBounds;
 import com.rookie.mybatis.transacton.Transaction;
 import org.slf4j.LoggerFactory;
 
@@ -34,25 +35,14 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
-    public <E> List<E> query(MappedStatement ms, Object parameter, ResultHandler resultHandler, BoundSql boundSql) {
-        //连接关闭的话抛出异常
+    public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
         if (closed) {
             throw new RuntimeException("Executor was closed.");
         }
-        return doQuery(ms, parameter, resultHandler, boundSql);
+        return doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
     }
 
-    /**
-     * 真正执行查询操作的方法
-     *
-     * @param ms
-     * @param parameter
-     * @param resultHandler
-     * @param boundSql
-     * @param <E>
-     * @return
-     */
-    protected abstract <E> List<E> doQuery(MappedStatement ms, Object parameter, ResultHandler resultHandler, BoundSql boundSql);
+    protected abstract <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql);
 
     @Override
     public Transaction getTransaction() {
