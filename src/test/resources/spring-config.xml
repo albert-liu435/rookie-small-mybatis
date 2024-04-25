@@ -17,7 +17,7 @@
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
         <!-- 给出需要扫描Dao接口包 -->
-        <property name="basePackage" value="com.rookie.middleware.mybatis.spring.test.dao"/>
+        <property name="basePackage" value="com.rookie.mybatis.test.dao"/>
     </bean>
 
 </beans>
