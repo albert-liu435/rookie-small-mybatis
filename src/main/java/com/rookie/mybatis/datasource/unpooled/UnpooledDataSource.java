@@ -45,6 +45,16 @@ public class UnpooledDataSource implements DataSource {
         }
     }
 
+    public UnpooledDataSource() {
+    }
+
+    public UnpooledDataSource(String driver, String url, String username, String password) {
+        this.driver = driver;
+        this.url = url;
+        this.username = username;
+        this.password = password;
+    }
+
     /**
      * 驱动代理
      */
