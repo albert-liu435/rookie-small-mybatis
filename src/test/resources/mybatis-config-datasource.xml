@@ -19,7 +19,12 @@
         <mapper resource="mapper/User_Mapper.xml"/>
         -->
         <!--注解配置-->
-        <mapper class="com.rookie.mybatis.test.dao.IUserDao"/>
+<!--        <mapper class="com.rookie.mybatis.test.dao.IUserDao"/>-->
+        <mappers>
+            <!-- XML 配置 -->
+            <mapper resource="mapper/Activity_Mapper.xml"/>
+        </mappers>
+
     </mappers>
 
 </configuration>
