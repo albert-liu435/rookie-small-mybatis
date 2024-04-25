@@ -14,6 +14,9 @@ import com.rookie.mybatis.session.SqlSessionFactory;
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
+    /**
+     * mybatis的核心配置信息
+     */
     private final Configuration configuration;
 
     public DefaultSqlSessionFactory(Configuration configuration) {

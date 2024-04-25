@@ -39,6 +39,7 @@ public class MapperRegistry {
      * @return
      */
     public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+        //代理工厂
         final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
         if (mapperProxyFactory == null) {
             throw new RuntimeException("Type " + type + " is not known to the MapperRegistry.");

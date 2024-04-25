@@ -76,7 +76,7 @@ public class XMLConfigBuilder extends BaseBuilder {
 
             // SELECT
             List<Element> selectNodes = root.elements("select");
-
+            //循环SELECT节点
             for (Element node : selectNodes) {
                 //节点ID
                 String id = node.attributeValue("id");
@@ -102,7 +102,7 @@ public class XMLConfigBuilder extends BaseBuilder {
                     parameter.put(i, g2);
                     sql = sql.replace(g1, "?");
                 }
-                //
+                //资源ID 命名空间+id
                 String msId = namespace + "." + id;
                 String nodeName = node.getName();
                 //SQL指令

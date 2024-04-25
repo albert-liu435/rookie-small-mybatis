@@ -38,7 +38,7 @@ public class ApiTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
-        // 2. 获取映射器对象
+        // 2. 获取映射器对象,即代理对象
         IUserDao userDao = sqlSession.getMapper(IUserDao.class);
 
         // 3. 测试验证
