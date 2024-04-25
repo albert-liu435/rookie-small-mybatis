@@ -2,11 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
-
-
-
 <configuration>
-
 
     <settings>
         <!-- 全局缓存：true/false -->
@@ -14,18 +10,6 @@
         <!--缓存级别：SESSION/STATEMENT-->
         <setting name="localCacheScope" value="STATEMENT"/>
     </settings>
-<!--    <settings>-->
-<!--        &lt;!&ndash;缓存级别：SESSION/STATEMENT&ndash;&gt;-->
-<!--        <setting name="localCacheScope" value="SESSION"/>-->
-<!--    </settings>-->
-
-<!--    <plugins>-->
-<!--        <plugin interceptor="com.rookie.mybatis.test.plugin.TestPlugin">-->
-<!--            <property name="test00" value="100"/>-->
-<!--            <property name="test01" value="200"/>-->
-<!--        </plugin>-->
-<!--    </plugins>-->
-
 
     <environments default="development">
         <environment id="development">
@@ -38,35 +22,10 @@
             </dataSource>
         </environment>
     </environments>
-    <mappers>
-        <!-- XML 配置
-        <mapper resource="mapper/User_Mapper.xml"/>
-        -->
-        <!--注解配置-->
-<!--        <mapper class="com.rookie.mybatis.test.dao.IUserDao"/>-->
-            <!-- XML 配置 -->
-            <mapper resource="mapper/Activity_Mapper.xml"/>
 
+    <mappers>
+        <!-- XML 配置 -->
+        <mapper resource="mapper/Activity_Mapper.xml"/>
     </mappers>
 
 </configuration>
-
-<!--<configuration>-->
-<!--<environments default="development">-->
-<!--    <environment id="development">-->
-<!--        <transactionManager type="JDBC"/>-->
-<!--        <dataSource type="POOLED">-->
-<!--            <property name="driver" value="com.mysql.jdbc.Driver"/>-->
-<!--            <property name="url" value="jdbc:mysql://localhost:3306/db?useUnicode=true &amp; characterEncoding=gbk &amp;useSSL=false &amp; serverTimezone=Asia/Shanghai"/>-->
-<!--            <property name="username" value="root"/>-->
-<!--            <property name="password" value="root"/>-->
-<!--        </dataSource>-->
-<!--    </environment>-->
-<!--</environments>-->
-
-<!--<mappers>-->
-<!--    <mapper resource="mapper/User_Mapper.xml"/>-->
-<!--</mappers>-->
-
-<!--</configuration>-->
-
