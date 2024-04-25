@@ -46,10 +46,15 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Class<?> declaringClass = method.getDeclaringClass();
+
+        Class<?> obj=Object.class;
+        //java.lang.reflect.Method.getDeclaringClass()方法返回表示声明由此Method对象表示的方法的类的Class对象。
         //如果是 Object 提供的 toString、hashCode 等方法是不需要代理执行的，所以添加 Object.class.equals(method.getDeclaringClass()) 判断。
         if (Object.class.equals(method.getDeclaringClass())) {
             return method.invoke(this, args);
         } else {
+            //接口名称+方法名称
             return "你的被代理了！" + sqlSession.get(mapperInterface.getName() + "." + method.getName());
         }
     }
