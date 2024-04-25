@@ -8,6 +8,7 @@ import com.rookie.mybatis.mapping.BoundSql;
 import com.rookie.mybatis.mapping.Environment;
 import com.rookie.mybatis.mapping.MappedStatement;
 import com.rookie.mybatis.mapping.SqlCommandType;
+import com.rookie.mybatis.plugin.Interceptor;
 import com.rookie.mybatis.session.Configuration;
 import com.rookie.mybatis.transacton.TransactionFactory;
 import org.dom4j.Document;
@@ -55,6 +56,8 @@ public class XMLConfigBuilder extends BaseBuilder {
      */
     public Configuration parse() {
         try {
+            // 插件 step-16 添加
+            pluginElement(root.element("plugins"));
             // 环境
             environmentsElement(root.element("environments"));
             // 解析映射器
@@ -63,6 +66,33 @@ public class XMLConfigBuilder extends BaseBuilder {
             throw new RuntimeException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
         }
         return configuration;
+    }
+
+    /**
+     * Mybatis 允许你在某一点切入映射语句执行的调度
+     * <plugins>
+     *     <plugin interceptor="cn.bugstack.mybatis.test.plugin.TestPlugin">
+     *         <property name="test00" value="100"/>
+     *         <property name="test01" value="100"/>
+     *     </plugin>
+     * </plugins>
+     */
+    private void pluginElement(Element parent) throws Exception {
+        if (parent == null) return;
+        List<Element> elements = parent.elements();
+        for (Element element : elements) {
+            String interceptor = element.attributeValue("interceptor");
+            // 参数配置
+            Properties properties = new Properties();
+            List<Element> propertyElementList = element.elements("property");
+            for (Element property : propertyElementList) {
+                properties.setProperty(property.attributeValue("name"), property.attributeValue("value"));
+            }
+            // 获取插件实现类并实例化：cn.bugstack.mybatis.test.plugin.TestPlugin
+            Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).newInstance();
+            interceptorInstance.setProperties(properties);
+            configuration.addInterceptor(interceptorInstance);
+        }
     }
 
     /**
