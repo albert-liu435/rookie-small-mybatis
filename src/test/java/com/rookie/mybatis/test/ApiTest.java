@@ -41,7 +41,6 @@ public class ApiTest {
 
     private Logger logger = LoggerFactory.getLogger(ApiTest.class);
 
-
     private SqlSession sqlSession;
 
     @Before
@@ -81,7 +80,6 @@ public class ApiTest {
         sqlSession.commit();
     }
 
-
     @Test
     public void test_updateUserInfo() {
         // 1. 获取映射器对象
@@ -111,7 +109,7 @@ public class ApiTest {
         IUserDao userDao = sqlSession.getMapper(IUserDao.class);
 
         // 2. 测试验证：对象参数
-        User user = userDao.queryUserInfo(new User(1L, "10001"));
+        User user = userDao.queryUserInfo(new User(1L));
         logger.info("测试结果：{}", JSON.toJSONString(user));
     }
 
