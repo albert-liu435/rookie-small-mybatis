@@ -17,6 +17,7 @@ import org.dom4j.io.SAXReader;
 import org.xml.sax.InputSource;
 
 import javax.sql.DataSource;
+import java.io.InputStream;
 import java.io.Reader;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -110,64 +111,24 @@ public class XMLConfigBuilder extends BaseBuilder {
         }
     }
 
+    /*
+     * <mappers>
+     *	 <mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
+     *	 <mapper resource="org/mybatis/builder/BlogMapper.xml"/>
+     *	 <mapper resource="org/mybatis/builder/PostMapper.xml"/>
+     * </mappers>
+     */
     private void mapperElement(Element mappers) throws Exception {
-        //获取mapper节点下面的资源，即*mapper.xml文件
         List<Element> mapperList = mappers.elements("mapper");
         for (Element e : mapperList) {
-            //获取映射的*mapper.xml文件
             String resource = e.attributeValue("resource");
-            Reader reader = Resources.getResourceAsReader(resource);
-            SAXReader saxReader = new SAXReader();
-            Document document = saxReader.read(new InputSource(reader));
-            Element root = document.getRootElement();
-            //命名空间
-            String namespace = root.attributeValue("namespace");
+            InputStream inputStream = Resources.getResourceAsStream(resource);
 
-            // SELECT
-            List<Element> selectNodes = root.elements("select");
-
-            for (Element node : selectNodes) {
-                //节点ID
-                String id = node.attributeValue("id");
-                //请求参数类型
-                String parameterType = node.attributeValue("parameterType");
-                //返回参数类型
-                String resultType = node.attributeValue("resultType");
-                //sql语句
-                String sql = node.getText();
-
-                // ? 匹配
-                Map<Integer, String> parameter = new HashMap<>();
-                //() 标记一个子表达式的开始和结束位置。子表达式可以获取供以后使用。要匹配这些字符，请使用 \( 和 \)。
-                //.匹配除换行符 \n 之外的任何单字符。要匹配 . ，请使用 \. 。
-                //*匹配前面的子表达式零次或多次。要匹配 * 字符，请使用 \*。
-                //？匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。要匹配 ? 字符，请使用 \?。
-                //
-                Pattern pattern = Pattern.compile("(#\\{(.*?)})");
-                Matcher matcher = pattern.matcher(sql);
-                for (int i = 1; matcher.find(); i++) {
-                    String g1 = matcher.group(1);
-                    String g2 = matcher.group(2);
-                    parameter.put(i, g2);
-                    sql = sql.replace(g1, "?");
-                }
-                //
-                String msId = namespace + "." + id;
-                String nodeName = node.getName();
-                //SQL指令
-                SqlCommandType sqlCommandType = SqlCommandType.valueOf(nodeName.toUpperCase(Locale.ENGLISH));
-
-                BoundSql boundSql = new BoundSql(sql, parameter, parameterType, resultType);
-
-                MappedStatement mappedStatement = new MappedStatement.Builder(configuration, msId, sqlCommandType, boundSql).build();
-                // 添加解析 SQL
-                configuration.addMappedStatement(mappedStatement);
-            }
-
-            // 注册Mapper映射器
-            configuration.addMapper(Resources.classForName(namespace));
+            // 在for循环里每个mapper都重新new一个XMLMapperBuilder，来解析
+            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource);
+            mapperParser.parse();
         }
     }
 
-
 }
+
