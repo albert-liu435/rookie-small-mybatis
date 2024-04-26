@@ -5,33 +5,24 @@ import java.util.Map;
 
 /**
  * @Class MapperProxyFactory
- * @Description 映射器代理工厂
- *
- * MapperProxyFactory 是对 MapperProxy 的包装，对外提供实例化对象的操作。当我们后面开始给每个操作数据库的接口映射器注册代理的时候，就需要使用到这个工厂类了。
- *
+ * @Description
  * @Author rookie
- * @Date 2024/4/19 16:09
+ * @Date 2024/4/26 10:41
  * @Version 1.0
  */
 public class MapperProxyFactory<T> {
 
-    //被代理的接口Class
     private final Class<T> mapperInterface;
 
     public MapperProxyFactory(Class<T> mapperInterface) {
         this.mapperInterface = mapperInterface;
     }
 
-    /**
-     * 创建代理对象
-     *
-     * @param sqlSession
-     * @return
-     */
-    public T newInstance(Map<String, String> sqlSession) {
-        final MapperProxy<T> mapperProxy = new MapperProxy<>(sqlSession, mapperInterface);
-        //返回代理对象
-        return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[]{mapperInterface}, mapperProxy);
+
+    public T newInstance(Map<String,String> sqlSession){
+        final MapperProxy<T> mapperProxy=new MapperProxy<>(sqlSession,mapperInterface);
+
+        return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(),new Class[]{mapperInterface},mapperProxy);
     }
 
 }
