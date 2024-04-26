@@ -5,11 +5,15 @@ import com.rookie.mybatis.session.SqlSession;
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * @Class MapperProxy
  * @Description 映射器代理类, 通过代理类包装对数据库的操作
  * 通过实现 InvocationHandler#invoke 代理类接口，封装操作逻辑的方式，对外接口提供数据库操作对象。
+ * MapperProxy 负责实现 InvocationHandler 接口的 invoke 方法，最终所有的实际调用都会调用到这个方法包装的逻辑。
+ *
+ *
  * @Author rookie
  * @Date 2024/4/19 16:09
  * @Version 1.0
@@ -23,10 +27,12 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
      */
     private SqlSession sqlSession;
     private final Class<T> mapperInterface;
+    private final Map<Method, MapperMethod> methodCache;
 
-    public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface) {
+    public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface, Map<Method, MapperMethod> methodCache) {
         this.sqlSession = sqlSession;
         this.mapperInterface = mapperInterface;
+        this.methodCache = methodCache;
     }
 
     /**
@@ -51,8 +57,22 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
         if (Object.class.equals(method.getDeclaringClass())) {
             return method.invoke(this, args);
         } else {
-            return sqlSession.selectOne(method.getName(), args);
+            final MapperMethod mapperMethod = cachedMapperMethod(method);
+            return mapperMethod.execute(sqlSession, args);
         }
+    }
+
+    /**
+     * 去缓存中找MapperMethod
+     */
+    private MapperMethod cachedMapperMethod(Method method) {
+        MapperMethod mapperMethod = methodCache.get(method);
+        if (mapperMethod == null) {
+            //找不到才去new
+            mapperMethod = new MapperMethod(mapperInterface, method, sqlSession.getConfiguration());
+            methodCache.put(method, mapperMethod);
+        }
+        return mapperMethod;
     }
 
 }
