@@ -4,7 +4,7 @@ import com.rookie.mybatis.mapping.BoundSql;
 import com.rookie.mybatis.mapping.MappedStatement;
 import com.rookie.mybatis.session.Configuration;
 import com.rookie.mybatis.session.ResultHandler;
-import com.rookie.mybatis.transaction.Transaction;
+import com.rookie.mybatis.transacton.Transaction;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;

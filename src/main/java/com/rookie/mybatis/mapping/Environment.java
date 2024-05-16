@@ -1,6 +1,6 @@
 package com.rookie.mybatis.mapping;
 
-import com.rookie.mybatis.transaction.TransactionFactory;
+import com.rookie.mybatis.transacton.TransactionFactory;
 
 import javax.sql.DataSource;
 
@@ -8,7 +8,7 @@ import javax.sql.DataSource;
  * @Class Environment
  * @Description 环境
  * @Author rookie
- * @Date 2024/5/14 17:31
+ * @Date 2024/4/24 9:57
  * @Version 1.0
  */
 public final class Environment {

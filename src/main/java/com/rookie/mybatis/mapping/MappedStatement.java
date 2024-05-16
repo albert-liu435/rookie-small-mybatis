@@ -2,7 +2,6 @@ package com.rookie.mybatis.mapping;
 
 import com.rookie.mybatis.session.Configuration;
 
-import java.util.Map;
 
 /**
  * @Class MappedStatement
@@ -15,11 +14,10 @@ import java.util.Map;
 public class MappedStatement {
 
     private Configuration configuration;
-    //xml sql语句ID,如：com.rookie.mybatis.test.dao.IUserDao.queryUserInfoById
     private String id;
-    //SQL指令
     private SqlCommandType sqlCommandType;
-    private BoundSql boundSql;
+    private SqlSource sqlSource;
+    Class<?> resultType;
 
     MappedStatement() {
         // constructor disabled
@@ -32,11 +30,12 @@ public class MappedStatement {
 
         private MappedStatement mappedStatement = new MappedStatement();
 
-        public Builder(Configuration configuration, String id, SqlCommandType sqlCommandType, BoundSql boundSql) {
+        public Builder(Configuration configuration, String id, SqlCommandType sqlCommandType, SqlSource sqlSource, Class<?> resultType) {
             mappedStatement.configuration = configuration;
             mappedStatement.id = id;
             mappedStatement.sqlCommandType = sqlCommandType;
-            mappedStatement.boundSql = boundSql;
+            mappedStatement.sqlSource = sqlSource;
+            mappedStatement.resultType = resultType;
         }
 
         public MappedStatement build() {
@@ -59,7 +58,12 @@ public class MappedStatement {
         return sqlCommandType;
     }
 
-    public BoundSql getBoundSql() {
-        return boundSql;
+    public SqlSource getSqlSource() {
+        return sqlSource;
     }
+
+    public Class<?> getResultType() {
+        return resultType;
+    }
+
 }

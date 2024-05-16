@@ -3,7 +3,7 @@ package com.rookie.mybatis.executor;
 import com.rookie.mybatis.mapping.BoundSql;
 import com.rookie.mybatis.mapping.MappedStatement;
 import com.rookie.mybatis.session.ResultHandler;
-import com.rookie.mybatis.transaction.Transaction;
+import com.rookie.mybatis.transacton.Transaction;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @Class Executor
  * @Description 执行器
  * @Author rookie
- * @Date 2024/5/16 11:05
+ * @Date 2024/4/24 11:43
  * @Version 1.0
  */
 public interface Executor {

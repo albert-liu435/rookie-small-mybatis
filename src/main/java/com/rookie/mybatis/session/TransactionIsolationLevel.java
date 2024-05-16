@@ -6,7 +6,7 @@ import java.sql.Connection;
  * @Class TransactionIsolationLevel
  * @Description 事务的隔离级别
  * @Author rookie
- * @Date 2024/5/14 11:56
+ * @Date 2024/4/24 9:51
  * @Version 1.0
  */
 public enum TransactionIsolationLevel {

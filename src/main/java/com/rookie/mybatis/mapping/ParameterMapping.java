@@ -7,7 +7,7 @@ import com.rookie.mybatis.type.JdbcType;
  * @Class ParameterMapping
  * @Description 参数映射 #{property,javaType=int,jdbcType=NUMERIC}
  * @Author rookie
- * @Date 2024/5/14 17:39
+ * @Date 2024/4/24 10:00
  * @Version 1.0
  */
 public class ParameterMapping {
@@ -28,9 +28,10 @@ public class ParameterMapping {
 
         private ParameterMapping parameterMapping = new ParameterMapping();
 
-        public Builder(Configuration configuration, String property) {
+        public Builder(Configuration configuration, String property, Class<?> javaType) {
             parameterMapping.configuration = configuration;
             parameterMapping.property = property;
+            parameterMapping.javaType = javaType;
         }
 
         public Builder javaType(Class<?> javaType) {
@@ -43,6 +44,9 @@ public class ParameterMapping {
             return this;
         }
 
+        public ParameterMapping build() {
+            return parameterMapping;
+        }
     }
 
     public Configuration getConfiguration() {

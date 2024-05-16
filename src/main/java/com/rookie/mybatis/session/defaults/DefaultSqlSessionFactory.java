@@ -1,14 +1,13 @@
 package com.rookie.mybatis.session.defaults;
 
-import com.rookie.mybatis.binding.MapperRegistry;
 import com.rookie.mybatis.executor.Executor;
 import com.rookie.mybatis.mapping.Environment;
 import com.rookie.mybatis.session.Configuration;
 import com.rookie.mybatis.session.SqlSession;
 import com.rookie.mybatis.session.SqlSessionFactory;
 import com.rookie.mybatis.session.TransactionIsolationLevel;
-import com.rookie.mybatis.transaction.Transaction;
-import com.rookie.mybatis.transaction.TransactionFactory;
+import com.rookie.mybatis.transacton.Transaction;
+import com.rookie.mybatis.transacton.TransactionFactory;
 
 import java.sql.SQLException;
 

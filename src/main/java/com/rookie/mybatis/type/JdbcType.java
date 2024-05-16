@@ -1,19 +1,18 @@
 package com.rookie.mybatis.type;
 
+
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
- * @Class jdbcType
+ * @Class JdbcType
  * @Description JDBC类型枚举
  * @Author rookie
- * @Date 2024/5/14 17:24
+ * @Date 2024/4/24 9:46
  * @Version 1.0
  */
 public enum JdbcType {
-
 
     INTEGER(Types.INTEGER),
     FLOAT(Types.FLOAT),

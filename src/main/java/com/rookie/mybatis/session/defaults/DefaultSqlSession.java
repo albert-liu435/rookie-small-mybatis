@@ -1,15 +1,10 @@
 package com.rookie.mybatis.session.defaults;
 
 import com.rookie.mybatis.executor.Executor;
-import com.rookie.mybatis.mapping.BoundSql;
-import com.rookie.mybatis.mapping.Environment;
 import com.rookie.mybatis.mapping.MappedStatement;
 import com.rookie.mybatis.session.Configuration;
 import com.rookie.mybatis.session.SqlSession;
 
-import java.lang.reflect.Method;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,8 +32,7 @@ public class DefaultSqlSession implements SqlSession {
     @Override
     public <T> T selectOne(String statement, Object parameter) {
         MappedStatement ms = configuration.getMappedStatement(statement);
-        List<T> list = executor.query(ms, parameter, Executor.NO_RESULT_HANDLER, ms.getBoundSql());
-        //因为查询的是一条记录，所以这里返回的是第一条记录
+        List<T> list = executor.query(ms, parameter, Executor.NO_RESULT_HANDLER, ms.getSqlSource().getBoundSql(parameter));
         return list.get(0);
     }
 
