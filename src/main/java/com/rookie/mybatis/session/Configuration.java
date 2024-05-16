@@ -6,6 +6,7 @@ import com.rookie.mybatis.datasource.pooled.PooledDataSourceFactory;
 import com.rookie.mybatis.datasource.unpooled.UnpooledDataSourceFactory;
 import com.rookie.mybatis.executor.Executor;
 import com.rookie.mybatis.executor.SimpleExecutor;
+import com.rookie.mybatis.executor.parameter.ParameterHandler;
 import com.rookie.mybatis.executor.resultset.DefaultResultSetHandler;
 import com.rookie.mybatis.executor.resultset.ResultSetHandler;
 import com.rookie.mybatis.executor.statement.PreparedStatementHandler;
@@ -18,6 +19,7 @@ import com.rookie.mybatis.reflection.factory.DefaultObjectFactory;
 import com.rookie.mybatis.reflection.factory.ObjectFactory;
 import com.rookie.mybatis.reflection.wrapper.DefaultObjectWrapperFactory;
 import com.rookie.mybatis.reflection.wrapper.ObjectWrapperFactory;
+import com.rookie.mybatis.scripting.LanguageDriver;
 import com.rookie.mybatis.scripting.LanguageDriverRegistry;
 import com.rookie.mybatis.scripting.xmltags.XMLLanguageDriver;
 import com.rookie.mybatis.transacton.Transaction;
@@ -155,6 +157,17 @@ public class Configuration {
 
     public LanguageDriverRegistry getLanguageRegistry() {
         return languageRegistry;
+    }
+
+    public ParameterHandler newParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql) {
+        // 创建参数处理器
+        ParameterHandler parameterHandler = mappedStatement.getLang().createParameterHandler(mappedStatement, parameterObject, boundSql);
+        // 插件的一些参数，也是在这里处理，暂时不添加这部分内容 interceptorChain.pluginAll(parameterHandler);
+        return parameterHandler;
+    }
+
+    public LanguageDriver getDefaultScriptingLanguageInstance() {
+        return languageRegistry.getDefaultDriver();
     }
 
 }

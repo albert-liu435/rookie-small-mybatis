@@ -68,12 +68,10 @@ public class MapperRegistry {
     }
 
     public void addMappers(String packageName) {
-        //进行包扫描
         Set<Class<?>> mapperSet = ClassScanner.scanPackage(packageName);
         for (Class<?> mapperClass : mapperSet) {
             addMapper(mapperClass);
         }
     }
-
 
 }
