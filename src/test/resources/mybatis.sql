@@ -13,6 +13,7 @@
 
  Date: 16/06/2022 12:59:31
 */
+use db;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
