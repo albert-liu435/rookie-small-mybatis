@@ -1,9 +1,6 @@
 package com.rookie.mybatis.cache.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.rookie.mybatis.cache.Cache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +13,6 @@ import java.util.Map;
  * @Version 1.0
  */
 public class PerpetualCache implements Cache {
-
-    private Logger logger = LoggerFactory.getLogger(PerpetualCache.class);
 
     private String id;
 
@@ -40,11 +35,7 @@ public class PerpetualCache implements Cache {
 
     @Override
     public Object getObject(Object key) {
-        Object obj = cache.get(key);
-        if (null != obj) {
-            logger.info("一级缓存 \r\nkey：{} \r\nval：{}", key, JSON.toJSONString(obj));
-        }
-        return obj;
+        return cache.get(key);
     }
 
     @Override

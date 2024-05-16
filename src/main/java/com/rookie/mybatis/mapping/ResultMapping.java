@@ -1,7 +1,6 @@
 package com.rookie.mybatis.mapping;
 
 import com.rookie.mybatis.session.Configuration;
-import com.rookie.mybatis.type.JdbcType;
 import com.rookie.mybatis.type.TypeHandler;
 import com.rookie.mybatis.type.TypeHandlerRegistry;
 

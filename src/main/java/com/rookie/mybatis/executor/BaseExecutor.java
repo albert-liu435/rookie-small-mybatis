@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * @Class BaseExecutor
- * @Description TODO
+ * @Description 执行器抽象基类
  * @Author rookie
  * @Date 2024/4/24 11:45
  * @Version 1.0
@@ -183,6 +183,11 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
+    public void setExecutorWrapper(Executor executor) {
+        this.wrapper = wrapper;
+    }
+
+    @Override
     public void close(boolean forceRollback) {
         try {
             try {
@@ -194,6 +199,7 @@ public abstract class BaseExecutor implements Executor {
             logger.warn("Unexpected exception on closing transaction.  Cause: " + e);
         } finally {
             transaction = null;
+            localCache = null;
             closed = true;
         }
     }

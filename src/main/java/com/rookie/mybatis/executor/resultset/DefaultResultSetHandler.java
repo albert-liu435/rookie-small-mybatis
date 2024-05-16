@@ -16,8 +16,9 @@ import com.rookie.mybatis.session.RowBounds;
 import com.rookie.mybatis.type.TypeHandler;
 import com.rookie.mybatis.type.TypeHandlerRegistry;
 
-import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
