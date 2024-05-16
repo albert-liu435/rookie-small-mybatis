@@ -2,10 +2,17 @@ package com.rookie.mybatis.test;
 
 
 import com.alibaba.fastjson.JSON;
+import com.rookie.mybatis.binding.MapperProxyFactory;
+import com.rookie.mybatis.binding.MapperRegistry;
+import com.rookie.mybatis.builder.xml.XMLConfigBuilder;
+import com.rookie.mybatis.datasource.pooled.PooledDataSource;
 import com.rookie.mybatis.io.Resources;
+import com.rookie.mybatis.session.Configuration;
 import com.rookie.mybatis.session.SqlSession;
 import com.rookie.mybatis.session.SqlSessionFactory;
 import com.rookie.mybatis.session.SqlSessionFactoryBuilder;
+import com.rookie.mybatis.session.defaults.DefaultSqlSession;
+import com.rookie.mybatis.session.defaults.DefaultSqlSessionFactory;
 import com.rookie.mybatis.test.dao.IUserDao;
 import com.rookie.mybatis.test.po.User;
 import org.junit.Before;
@@ -14,7 +21,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.lang.reflect.Proxy;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -27,7 +40,6 @@ import java.util.List;
 public class ApiTest {
 
     private Logger logger = LoggerFactory.getLogger(ApiTest.class);
-
 
     private SqlSession sqlSession;
 
@@ -68,7 +80,6 @@ public class ApiTest {
         sqlSession.commit();
     }
 
-
     @Test
     public void test_updateUserInfo() {
         // 1. 获取映射器对象
@@ -98,7 +109,7 @@ public class ApiTest {
         IUserDao userDao = sqlSession.getMapper(IUserDao.class);
 
         // 2. 测试验证：对象参数
-        User user = userDao.queryUserInfo(new User(1L, "10001"));
+        User user = userDao.queryUserInfo(new User(1L));
         logger.info("测试结果：{}", JSON.toJSONString(user));
     }
 
