@@ -9,6 +9,9 @@ package com.rookie.mybatis.session;
  */
 public interface ResultHandler {
 
-    void handleResult();
+    /**
+     * 处理结果
+     */
+    void handleResult(ResultContext context);
 
 }

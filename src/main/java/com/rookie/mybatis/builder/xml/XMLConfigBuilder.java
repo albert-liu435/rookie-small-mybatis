@@ -6,7 +6,7 @@ import com.rookie.mybatis.datasource.DataSourceFactory;
 import com.rookie.mybatis.io.Resources;
 import com.rookie.mybatis.mapping.Environment;
 import com.rookie.mybatis.session.Configuration;
-import com.rookie.mybatis.transacton.TransactionFactory;
+import com.rookie.mybatis.transaction.TransactionFactory;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;

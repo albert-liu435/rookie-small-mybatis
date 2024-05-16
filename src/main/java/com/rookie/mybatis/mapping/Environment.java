@@ -1,6 +1,6 @@
 package com.rookie.mybatis.mapping;
 
-import com.rookie.mybatis.transacton.TransactionFactory;
+import com.rookie.mybatis.transaction.TransactionFactory;
 
 import javax.sql.DataSource;
 

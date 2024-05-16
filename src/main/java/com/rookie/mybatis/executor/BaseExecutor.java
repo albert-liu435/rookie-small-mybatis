@@ -4,10 +4,12 @@ import com.rookie.mybatis.mapping.BoundSql;
 import com.rookie.mybatis.mapping.MappedStatement;
 import com.rookie.mybatis.session.Configuration;
 import com.rookie.mybatis.session.ResultHandler;
-import com.rookie.mybatis.transacton.Transaction;
+import com.rookie.mybatis.session.RowBounds;
+import com.rookie.mybatis.transaction.Transaction;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -34,25 +36,21 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
-    public <E> List<E> query(MappedStatement ms, Object parameter, ResultHandler resultHandler, BoundSql boundSql) {
-        //连接关闭的话抛出异常
+    public int update(MappedStatement ms, Object parameter) throws SQLException {
+        return doUpdate(ms, parameter);
+    }
+
+    @Override
+    public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
         if (closed) {
             throw new RuntimeException("Executor was closed.");
         }
-        return doQuery(ms, parameter, resultHandler, boundSql);
+        return doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
     }
 
-    /**
-     * 真正执行查询操作的方法
-     *
-     * @param ms
-     * @param parameter
-     * @param resultHandler
-     * @param boundSql
-     * @param <E>
-     * @return
-     */
-    protected abstract <E> List<E> doQuery(MappedStatement ms, Object parameter, ResultHandler resultHandler, BoundSql boundSql);
+    protected abstract int doUpdate(MappedStatement ms, Object parameter) throws SQLException;
+
+    protected abstract <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException;
 
     @Override
     public Transaction getTransaction() {
@@ -94,6 +92,15 @@ public abstract class BaseExecutor implements Executor {
         } finally {
             transaction = null;
             closed = true;
+        }
+    }
+
+    protected void closeStatement(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException ignore) {
+            }
         }
     }
 

@@ -7,7 +7,7 @@ import java.util.Properties;
  * @Class DataSourceFactory
  * @Description 数据源工厂
  * @Author rookie
- * @Date 2024/5/14 11:32
+ * @Date 2024/4/24 9:32
  * @Version 1.0
  */
 public interface DataSourceFactory {

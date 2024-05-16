@@ -1,5 +1,6 @@
 package com.rookie.mybatis.transaction;
 
+
 import com.rookie.mybatis.session.TransactionIsolationLevel;
 
 import javax.sql.DataSource;
@@ -9,7 +10,7 @@ import java.sql.Connection;
  * @Class TransactionFactory
  * @Description 事务工厂
  * @Author rookie
- * @Date 2024/5/14 11:54
+ * @Date 2024/4/24 9:50
  * @Version 1.0
  */
 public interface TransactionFactory {

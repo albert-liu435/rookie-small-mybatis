@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @Class JdbcTransaction
  * @description JDBC 事务，直接利用 JDBC 的 commit、rollback。依赖于数据源获得的连接来管理事务范围。
  * @Author rookie
- * @Date 2024/5/14 11:58
+ * @Date 2024/4/24 9:52
  * @Version 1.0
  */
 public class JdbcTransaction implements Transaction {

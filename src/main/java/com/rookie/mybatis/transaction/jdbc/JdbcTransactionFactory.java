@@ -9,9 +9,9 @@ import java.sql.Connection;
 
 /**
  * @Class JdbcTransactionFactory
- * @Description JdbcTransaction
+ * @Description JdbcTransaction 工厂
  * @Author rookie
- * @Date 2024/5/14 17:18
+ * @Date 2024/4/24 9:55
  * @Version 1.0
  */
 public class JdbcTransactionFactory implements TransactionFactory {

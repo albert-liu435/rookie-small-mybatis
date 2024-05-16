@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * @Class Transaction
  * @Description 事务接口
  * @Author rookie
- * @Date 2024/5/14 11:55
+ * @Date 2024/4/24 9:48
  * @Version 1.0
  */
 public interface Transaction {
